@@ -28,7 +28,7 @@ namespace SchoolSync
         {
             InitializeComponent();
             this.DataContext = vm;
-            PostSchoolsToServer(vm.Changes.ToList());
+            //PostSchoolsToServer(vm.Changes.ToList());
         }
 
         private void PostSchoolsToServer(List<School> schools)
@@ -52,12 +52,6 @@ namespace SchoolSync
                 var result = streamReader.ReadToEnd();
                 global::System.Windows.MessageBox.Show(result);
             }
-            //Dictionary<string, string> data = new Dictionary<string, string>();
-            //int index = 0;
-            //foreach (var school in schools)
-            //{
-            //    data.Add()
-            //}
         }
     }
 }

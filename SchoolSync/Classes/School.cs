@@ -10,7 +10,7 @@ namespace SchoolSync
     {
         public string SchoolCode { get; set; }
         public string Name { get; set; }
-        public int RegionNumber { get; set; }
-        public int RegionName { get; set; }
+        public string RegionNumber { get; set; }
+        public string RegionName { get; set; }
     }
 }

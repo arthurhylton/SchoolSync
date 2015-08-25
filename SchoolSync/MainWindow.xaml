@@ -3,10 +3,21 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="SchoolSync" Height="650" Width="825">
     <DockPanel>
-        <StackPanel>
+        <StackPanel DockPanel.Dock="Top">
             <TextBlock Text="{Binding ElementName=ChangesDataGrid, Path=Items.Count, StringFormat='Changes Found: {0}'}" />
-            <DataGrid x:Name="ChangesDataGrid" ItemsSource="{Binding Path=Changes}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="True" Height="250" />
-
+            <DataGrid x:Name="ChangesDataGrid" ItemsSource="{Binding Path=Changes}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="True" Height="200" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Top">
+            <TextBlock Text="{Binding ElementName=ErrorsDataGrid, Path=Items.Count, StringFormat='Erros Found: {0}'}" />
+            <DataGrid x:Name="ErrorsDataGrid" ItemsSource="{Binding Path=Errors}" CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False" AutoGenerateColumns="True" Height="100" />
+        </StackPanel>
+        <StackPanel DockPanel.Dock="Bottom" Height="40">
+            <Button Content="Sync Data" Width="100" />
+        </StackPanel>
+        <StackPanel>
+            <Grid>
+                <TextBox TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Stretch"></TextBox>
+            </Grid>
         </StackPanel>
     </DockPanel>
 </Window>
