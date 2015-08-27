@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,5 +13,8 @@ namespace SchoolSync
         public string Name { get; set; }
         public string RegionNumber { get; set; }
         public string RegionName { get; set; }
+        
+        [JsonIgnore]
+        public string ErrorMessage { get; set; }
     }
 }
