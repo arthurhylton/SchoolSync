@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
+using Microsoft.Win32;
 
 namespace SchoolSync
 {
@@ -28,10 +29,9 @@ namespace SchoolSync
         {
             InitializeComponent();
             this.DataContext = vm;
-            //PostSchoolsToServer(vm.Changes.ToList());
         }
 
-        private void PostSchoolsToServer(List<School> schools)
+        private string PostSchoolsToServer(List<School> schools)
         {
             var httpWebRequest = (HttpWebRequest)WebRequest.Create(Properties.Settings.Default.RemoteDatabaseWebServiceURL);
             httpWebRequest.ContentType = "text/json";
@@ -50,8 +50,40 @@ namespace SchoolSync
             using(var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 var result = streamReader.ReadToEnd();
-                global::System.Windows.MessageBox.Show(result);
+                return result;
             }
+        }
+
+        private void btnSyncData_Click(object sender, RoutedEventArgs e)
+        {
+            //txtSyncStatus.Text = PostSchoolsToServer(vm.Changes.ToList());
+        }
+
+        private void ButtonOpenFiles_Click(object sender, RoutedEventArgs e)
+        {
+            vm.ProcessFiles();
+        }
+
+        private void ButtonBrowseOldFile_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ButtonBrowseNewFile_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.ShowDialog(this);
+            if(!string.IsNullOrWhiteSpace(openFileDialog.FileName))
+            {
+                vm.NewFilePath = openFileDialog.FileName;
+                vm.newFileName = openFileDialog.SafeFileName;
+            }
+            vm.RaisePropertyChanged("NewFilePath");
+        }
+
+        private void ButtonGenerateSQL_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

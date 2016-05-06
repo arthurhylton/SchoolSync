@@ -13,6 +13,11 @@ namespace SchoolSync
         public string Name { get; set; }
         public string RegionNumber { get; set; }
         public string RegionName { get; set; }
+        public string ParishNumber { get; set; }
+        public string ParishName { get; set; }
+        public string SchoolTypeCode { get; set; }
+        public string SchoolTypeName { get; set; }
+        
         
         [JsonIgnore]
         public string ErrorMessage { get; set; }
