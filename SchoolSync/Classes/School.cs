@@ -17,6 +17,7 @@ namespace SchoolSync
         public string ParishName { get; set; }
         public string SchoolTypeCode { get; set; }
         public string SchoolTypeName { get; set; }
+        public string Gender { get; set; }
         
         
         [JsonIgnore]

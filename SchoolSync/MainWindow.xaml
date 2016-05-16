@@ -28,6 +28,7 @@
                     <DataGridTextColumn Header="Region" Binding="{Binding RegionName}" Width="0.8*" />
                     <DataGridTextColumn Header="Type Code" Binding="{Binding SchoolTypeCode}" Width="0.8*" />
                     <DataGridTextColumn Header="Type" Binding="{Binding SchoolTypeName}" Width="0.8*" />
+                    <DataGridTextColumn Header="Gender" Binding="{Binding Gender}" Width="0.5*" />
                 </DataGrid.Columns>
             </DataGrid>
         </StackPanel>
@@ -51,7 +52,7 @@
         </StackPanel>
         <StackPanel>
             <Grid Margin="10 20 10 10">
-                <TextBox x:Name="txtSyncStatus" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Stretch" Height="100" BorderBrush="Gray"></TextBox>
+                <TextBox x:Name="TextBoxSQL" TextWrapping="Wrap" AcceptsReturn="True" VerticalContentAlignment="Stretch" Height="100" BorderBrush="Gray"></TextBox>
             </Grid>
         </StackPanel>
     </DockPanel>

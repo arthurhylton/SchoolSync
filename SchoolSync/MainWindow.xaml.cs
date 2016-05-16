@@ -37,7 +37,7 @@ namespace SchoolSync
             httpWebRequest.ContentType = "text/json";
             httpWebRequest.Method = "POST";
 
-            using(var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
+            using (var streamWriter = new StreamWriter(httpWebRequest.GetRequestStream()))
             {
                 string json = JsonConvert.SerializeObject(schools);
 
@@ -47,7 +47,7 @@ namespace SchoolSync
             }
 
             var httpResponse = (HttpWebResponse)httpWebRequest.GetResponse();
-            using(var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
                 var result = streamReader.ReadToEnd();
                 return result;
@@ -73,7 +73,7 @@ namespace SchoolSync
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.ShowDialog(this);
-            if(!string.IsNullOrWhiteSpace(openFileDialog.FileName))
+            if (!string.IsNullOrWhiteSpace(openFileDialog.FileName))
             {
                 vm.NewFilePath = openFileDialog.FileName;
                 vm.newFileName = openFileDialog.SafeFileName;
@@ -83,7 +83,7 @@ namespace SchoolSync
 
         private void ButtonGenerateSQL_Click(object sender, RoutedEventArgs e)
         {
-
+            TextBoxSQL.Text = vm.GetUpdateSQL();
         }
     }
 }
