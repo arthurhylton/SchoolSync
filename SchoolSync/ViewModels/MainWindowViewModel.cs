@@ -153,6 +153,12 @@ namespace SchoolSync
                     Errors.Add(newSchool);
                 }
 
+                //Ensure that type_code exists
+                if(string.IsNullOrWhiteSpace(newSchool.SchoolTypeCode))
+                {
+                    newSchool.ErrorMessage += "School type code is blank. ";
+                }
+
                 string tmpParishName;
                 //Ensure that parish name and number align
                 if (Parishes.TryGetValue(newSchool.ParishNumber, out tmpParishName))
