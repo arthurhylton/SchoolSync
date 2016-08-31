@@ -57,6 +57,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Classes\Enumerations.cs" />
     <Compile Include="Classes\ExtensionMethods.cs" />
     <Compile Include="Classes\School.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />

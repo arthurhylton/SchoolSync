@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Newtonsoft.Json;
 using Microsoft.Win32;
+using SchoolSync.Classes;
 
 namespace SchoolSync
 {
@@ -83,7 +84,13 @@ namespace SchoolSync
 
         private void ButtonGenerateSQL_Click(object sender, RoutedEventArgs e)
         {
-            TextBoxSQL.Text = vm.GetUpdateSQL();
+            DatabaseMode dbMode = DatabaseMode.MySQL;
+            if(radioButtonMSSQL.IsChecked.Value)
+            {
+                dbMode = DatabaseMode.MSSQL;
+            }
+
+            TextBoxSQL.Text = vm.GetUpdateSQL(dbMode, textBoxTableName.Text);
         }
     }
 }

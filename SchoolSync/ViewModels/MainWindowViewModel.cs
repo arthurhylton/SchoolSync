@@ -1,4 +1,5 @@
-﻿using SchoolSync.ViewModels;
+﻿using SchoolSync.Classes;
+using SchoolSync.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -154,7 +155,7 @@ namespace SchoolSync
                 }
 
                 //Ensure that type_code exists
-                if(string.IsNullOrWhiteSpace(newSchool.SchoolTypeCode))
+                if (string.IsNullOrWhiteSpace(newSchool.SchoolTypeCode))
                 {
                     newSchool.ErrorMessage += "School type code is blank. ";
                 }
@@ -178,13 +179,27 @@ namespace SchoolSync
             //return errorSchools;
         }
 
-        public string GetUpdateSQL()
+        public string GetUpdateSQL(DatabaseMode dbMode, string tableName)
         {
             StringBuilder stringBuilder = new StringBuilder();
-            foreach (var newSchool in NewSchools)
+            switch (dbMode)
             {
-                stringBuilder.AppendLine(string.Format("INSERT INTO all_schools (school_code,name,parish_number,parish_name,region_number,region_name,type_code,type_name,gender) VALUES ( '{0}','{1}',{2},'{3}',{4},'{5}','{6}','{7}','{8}' ) ON DUPLICATE KEY UPDATE type_code = VALUES(type_code), type_name = VALUES(type_name), gender = VALUES(gender);", newSchool.SchoolCode, newSchool.Name.Replace("'","\\'"), newSchool.ParishNumber, newSchool.ParishName.Replace("'", "\\'"), newSchool.RegionNumber, newSchool.RegionName.Replace("'", "\\'"), newSchool.SchoolTypeCode, newSchool.SchoolTypeName.Replace("'", "\\'"), newSchool.Gender) + Environment.NewLine);
+                case DatabaseMode.MySQL:
+                    foreach (var newSchool in NewSchools)
+                    {
+                        stringBuilder.AppendLine(string.Format("INSERT INTO {9} (school_code,name,parish_number,parish_name,region_number,region_name,type_code,type_name,gender) VALUES ( '{0}','{1}',{2},'{3}',{4},'{5}','{6}','{7}','{8}' ) ON DUPLICATE KEY UPDATE type_code = VALUES(type_code), type_name = VALUES(type_name), gender = VALUES(gender);", newSchool.SchoolCode, newSchool.Name.Replace("'", "\\'"), newSchool.ParishNumber, newSchool.ParishName.Replace("'", "\\'"), newSchool.RegionNumber, newSchool.RegionName.Replace("'", "\\'"), newSchool.SchoolTypeCode, newSchool.SchoolTypeName.Replace("'", "\\'"), newSchool.Gender, tableName) + Environment.NewLine);
+                    }
+                    break;
+                case DatabaseMode.MSSQL:
+                    foreach (var newSchool in NewSchools)
+                    {
+                        stringBuilder.AppendLine(string.Format("MERGE INTO {9} AS trgt USING (SELECT '{0}' code, '{1}' Name, {2} Parish, '{3}' ParishName, {4} Region, '{5}' RegionName, {6} TypeCode, '{7}' TypeName, '{8}' Gender) AS src ON trgt.Code = src.code when matched then update set Name = src.name, Parish = src.Parish, Region = src.Region WHEN NOT MATCHED THEN INSERT (Code, Name, Parish, ParishName, Region, RegionName, TypeCode, TypeName, Gender) VALUES(src.Code, src.Name, src.Parish, src.ParishName, src.Region, src.RegionName, src.TypeCode, src.TypeName, src.Gender);", newSchool.SchoolCode, newSchool.Name.Replace("'", "''"), newSchool.ParishNumber, newSchool.ParishName.Replace("'", "''"), newSchool.RegionNumber, newSchool.RegionName.Replace("'", "''"), newSchool.SchoolTypeCode, newSchool.SchoolTypeName.Replace("'", "''"), newSchool.Gender, tableName) + Environment.NewLine);
+                    }
+
+                    break;
             }
+
+
             return stringBuilder.ToString();
         }
     }

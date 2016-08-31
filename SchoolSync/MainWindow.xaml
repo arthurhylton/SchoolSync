@@ -49,6 +49,12 @@
         <StackPanel DockPanel.Dock="Bottom" Height="40" Orientation="Horizontal">
             <Button Content="Sync Data" Width="100" x:Name="btnSyncData" Click="btnSyncData_Click" Margin="10 5" />
             <Button Content="Generate SQL" Width="150" x:Name="ButtonGenerateSQL" Click="ButtonGenerateSQL_Click" Margin="10 5" />
+            <StackPanel Orientation="Horizontal" Margin="0 0 20 0">
+                <RadioButton Content="MySQL" x:Name="radioButtonMySQL" IsChecked="True" Margin="0 0 10 0" VerticalAlignment="Center" />
+                <RadioButton Content="MS-SQL" x:Name="radioButtonMSSQL" VerticalAlignment="Center" />
+            </StackPanel>
+            <TextBlock Text="Table Name:" VerticalAlignment="Center" />
+            <TextBox x:Name="textBoxTableName" Text="all_schools" Margin="5" Width="200" />
         </StackPanel>
         <StackPanel>
             <Grid Margin="10 20 10 10">
